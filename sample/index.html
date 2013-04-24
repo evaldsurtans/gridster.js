@@ -13,47 +13,110 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        
+        <!--
         <script src="../src/jquery.coords.js"></script>
         <script src="../src/jquery.collision.js"></script>
         <script src="../src/utils.js"></script>
         <script src="../src/jquery.draggable.js"></script>
         <script src="../src/jquery.gridster.js"></script>
-        <link rel="stylesheet" href="../src/jquery.gridster.css">
+        -->
+        
+        <script src="../dist/jquery.gridster.min.js"></script>        
+        <link rel="stylesheet" href="../dist/jquery.gridster.min.css">
 
         <script type="text/javascript">
-            var gridster = "";
+            var gridster = null;
             $(document).ready(function () {
-                p = $(".gridster ul").gridster({
+                gridster = $(".gridster ul").gridster({
                     widget_margins: [10, 10],
                     widget_base_dimensions: [140, 140],
-                    shift_larger_widgets_down: false
+                    shift_larger_widgets_down: false,
+                    resize_handle: '.handle-resize',
+                    resize_variations: [
+                        {sizex: 1, sizey: 1},
+                        {sizex: 2, sizey: 2}
+                    ]
                 }).data('gridster');
+                
+                $('#toggle-enable').change(function(event){
+                    
+                    if($(this).is(':checked')) {
+                        gridster.enable();
+                    } else {
+                        gridster.disable();                        
+                    }                    
+                }).trigger('change');              
             });
         </script>
     </head>
     <body>
         <div class="gridster">
-          <ul style="height: 480px; position: relative; ">
-            <li data-row="1" data-col="1" data-sizex="2" data-sizey="1" class="gs_w"></li>
-            <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" class="gs_w"></li>
-
-            <li data-row="3" data-col="2" data-sizex="2" data-sizey="1" class="gs_w"></li>
-            <li data-row="1" data-col="3" data-sizex="2" data-sizey="2" class="gs_w"></li>
-
-            <li class="try gs_w" data-row="1" data-col="5" data-sizex="1" data-sizey="1"></li>
-            <li data-row="2" data-col="1" data-sizex="2" data-sizey="1" class="gs_w"></li>
-            <li data-row="3" data-col="4" data-sizex="1" data-sizey="1" class="gs_w"></li>
-
-            <li data-row="1" data-col="6" data-sizex="1" data-sizey="1" class="gs_w"></li>
-            <li data-row="3" data-col="5" data-sizex="1" data-sizey="1" class="gs_w"></li>
-
-            <li data-row="2" data-col="5" data-sizex="1" data-sizey="1" class="gs_w"></li>
-            <li data-row="2" data-col="6" data-sizex="1" data-sizey="2" class="gs_w"></li>
+          <ul style="height: 480px; position: relative;">
+            <li class="gs_w player-revert" data-sizey="2" data-sizex="2" data-col="4" data-row="1">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="1" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="2" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="2" data-sizex="2" data-col="1" data-row="1">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="3" data-row="1" class="try gs_w">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="3" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="4" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="6" data-row="1">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="5" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="3" data-row="2">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li class="gs_w" data-sizey="1" data-sizex="1" data-col="6" data-row="2">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
           </ul>
         </div>
 
     <div class="content">
+        <p>
+            <input id="toggle-enable" type="checkbox" checked="checked" value="1" /> <label>Dragging enabled</label>            
+        </p>
         <p>This demo represents using the branch in swap mode. This works best with shift_larger_widgets_down set to "false". However, smaller widgets do not displace larger ones.</p>
     </div>
 </body>

@@ -741,6 +741,8 @@
         max_rows: 15,
         max_size_x: 6,
         enabled: true,
+        resize_handle: null,
+        resize_variations: [],
         autogenerate_stylesheet: true,
         avoid_overlapped_widgets: true,
         shift_larger_widgets_down: true,
@@ -836,9 +838,74 @@
         if(!this.options.enabled) {
             this.disable();
         }       
+        
+        if(this.options.resize_handle) {
+            this.$resizeHandle = $(this.options.resize_handle);
+            this.$resizeHandle.bind('click', $.proxy(this.click_resize_handle, this));
+        }
 
         $(window).bind(
             'resize', throttle($.proxy(this.recalculate_faux_grid, this), 200));
+    };
+    
+    
+    /**
+    * Release bindings
+    *
+    * @method destroy
+    */
+    fn.destroy = function() {
+        $(window).unbind('resize');
+        
+        if(this.$resizeHandle) {
+            this.$resizeHandle.unbind('click');
+        }                
+    };
+    
+    
+    /**
+    * Resize box
+    *
+    * @method click_resize_handle
+    * @return {Class} Returns the instance of the Gridster Class.
+    */
+    fn.click_resize_handle = function(event) {
+        
+        event.preventDefault();
+        
+        if(!this.isEnabled()) {
+            return this;
+        }
+        
+        var $li = $(event.target).parents('li:first');
+        
+        for(var i = 0; i < this.options.resize_variations.length; i++) {
+            var variation = this.options.resize_variations[i];
+            
+            if(parseInt($li.attr('data-sizex')) === variation.sizex && 
+                parseInt($li.attr('data-sizey')) === variation.sizey) {
+                i++;
+                
+                if(i >= this.options.resize_variations.length) {
+                    i = 0;
+                }
+                
+                variation = this.options.resize_variations[i];
+                
+                $li.attr('data-sizex', variation.sizex);
+                $li.attr('data-sizey', variation.sizey);
+                
+                this.resize_widget($li, variation.sizex, variation.sizey);
+                
+                break;        
+            }
+        }
+        
+        this.generate_grid_and_stylesheet();
+        this.get_widgets_from_DOM();
+        this.set_dom_grid_height();
+        
+        return this;
     };
 
 
@@ -852,7 +919,9 @@
         this.$wrapper.find('.player-revert').removeClass('player-revert');
         this.drag_api.disable();
         
-        this.$wrapper.addClass('disabled');        
+        this.$wrapper.removeClass('enabled');
+        this.$wrapper.addClass('disabled');   
+             
         return this;
     };
 
@@ -866,12 +935,23 @@
     fn.enable = function() {
         this.drag_api.enable();
         
+        this.$wrapper.removeClass('disabled');
         this.$wrapper.addClass('enabled');
         
         return this;
     };
 
 
+    /**
+    * Is in enabled-mode
+    *
+    * @method isEnabled
+    * @return {bool}
+    */
+    fn.isEnabled = function() {        
+        return this.$wrapper.hasClass('enabled');
+    };
+    
     /**
     * Add a new widget to the grid.
     *
