@@ -14,17 +14,21 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script src="../dist/jquery.gridster.js"></script>
-        <link rel="stylesheet" href="../dist/jquery.gridster.min.css">
+        <script src="../src/jquery.coords.js"></script>
+        <script src="../src/jquery.collision.js"></script>
+        <script src="../src/utils.js"></script>
+        <script src="../src/jquery.draggable.js"></script>
+        <script src="../src/jquery.gridster.js"></script>
+        <link rel="stylesheet" href="../src/jquery.gridster.css">
 
         <script type="text/javascript">
             var gridster = "";
             $(document).ready(function () {
-                $(".gridster ul").gridster({
+                p = $(".gridster ul").gridster({
                     widget_margins: [10, 10],
                     widget_base_dimensions: [140, 140],
                     shift_larger_widgets_down: false
-                });
+                }).data('gridster');
             });
         </script>
     </head>

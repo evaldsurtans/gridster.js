@@ -21,6 +21,7 @@
         min_rows: 15,
         max_rows: 15,
         max_size_x: 6,
+        enabled: true,
         autogenerate_stylesheet: true,
         avoid_overlapped_widgets: true,
         shift_larger_widgets_down: true,
@@ -110,8 +111,12 @@
         this.generate_grid_and_stylesheet();
         this.get_widgets_from_DOM();
         this.set_dom_grid_height();
-        this.$wrapper.addClass('ready');
+        this.$wrapper.addClass('ready');        
         this.draggable();
+        
+        if(!this.options.enabled) {
+            this.disable();
+        }       
 
         $(window).bind(
             'resize', throttle($.proxy(this.recalculate_faux_grid, this), 200));
@@ -127,6 +132,8 @@
     fn.disable = function() {
         this.$wrapper.find('.player-revert').removeClass('player-revert');
         this.drag_api.disable();
+        
+        this.$wrapper.addClass('disabled');        
         return this;
     };
 
@@ -139,6 +146,9 @@
     */
     fn.enable = function() {
         this.drag_api.enable();
+        
+        this.$wrapper.addClass('enabled');
+        
         return this;
     };
 
