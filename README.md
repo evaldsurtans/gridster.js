@@ -5,17 +5,28 @@ Gridster is a jQuery plugin that makes building intuitive draggable
 layouts from elements spanning multiple columns. You can even
 dynamically add and remove elements from the grid.
 
-More at [http://gridster.net/](http://gridster.net/).
-
 License
 =======
 
 Distributed under the MIT license.
 
-Whodunit
+Info
 ========
 
-Gridster is built by [Ducksboard](http://ducksboard.com/).
+Demo available here: http://evalds.lv/gridster
+
+
+Gridster originally was built by [Ducksboard](http://ducksboard.com/).
+Additions made by Evalds Urants
+
+evaldsurtans Modifications
+===========
+
+Changelog 2013-04-24
+
++ Enable / Disable functionality
++ Resize functionality
++ Merge of other forked versions 
 
 dustmoo Modifications
 ===========
