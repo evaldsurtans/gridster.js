@@ -17,7 +17,8 @@ Demo available here: http://evalds.lv/gridster
 
 
 Gridster originally was built by [Ducksboard](http://ducksboard.com/).
-Additions made by Evalds Urants
+
+Additions made by Evalds Urtans
 
 evaldsurtans Modifications
 ===========
