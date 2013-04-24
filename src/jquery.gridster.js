@@ -2023,6 +2023,8 @@
     * @return {Class} Returns the instance of the Gridster Class.
     */
     fn.move_widget_down = function($widget, y_units) {
+    
+    	if (y_units <= 0) { return false; }   
         var el_grid_data = $widget.coords().grid;
         var actual_row = el_grid_data.row;
         var moved = [];
@@ -2850,6 +2852,12 @@
         });
 
         this.cols = Math.max(min_cols, cols, this.options.min_cols);
+        var max_cols = this.options.max_cols;
+        if (max_cols >= -1 && max_cols >= min_cols) {
+            if (max_cols < this.cols) {
+                this.cols = max_cols;
+            }
+        }
         //this.rows = Math.max(max_rows, this.options.min_rows);
         this.rows = this.options.max_rows;
 

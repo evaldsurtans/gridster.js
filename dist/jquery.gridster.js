@@ -1,6 +1,10 @@
-/*! gridster.js - v0.1.0 - 2013-04-03
-* http://gridster.net/
-* Copyright (c) 2013 ducksboard; Licensed MIT */
+/*
+ * jquery.coords
+ * https://github.com/ducksboard/gridster.js
+ *
+ * Copyright (c) 2012 ducksboard
+ * Licensed under the MIT licenses.
+ */
 
 ;(function($, window, document, undefined){
     /**
@@ -102,6 +106,13 @@
     };
 
 }(jQuery, window, document));
+;/*
+ * jquery.collision
+ * https://github.com/ducksboard/gridster.js
+ *
+ * Copyright (c) 2012 ducksboard
+ * Licensed under the MIT licenses.
+ */
 
 ;(function($, window, document, undefined){
 
@@ -315,8 +326,7 @@
 
 
 }(jQuery, window, document));
-
-;(function(window, undefined) {
+;;(function(window, undefined) {
     /* Debounce and throttle functions taken from underscore.js */
     window.debounce = function(func, wait, immediate) {
         var timeout;
@@ -357,6 +367,13 @@
     };
 
 })(window);
+;/*
+ * jquery.draggable
+ * https://github.com/ducksboard/gridster.js
+ *
+ * Copyright (c) 2012 ducksboard
+ * Licensed under the MIT licenses.
+ */
 
 ;(function($, window, document, undefined){
 
@@ -700,7 +717,13 @@
 
 
 }(jQuery, window, document));
-
+;/*
+ * jquery.gridster
+ * https://github.com/ducksboard/gridster.js
+ *
+ * Copyright (c) 2012 ducksboard
+ * Licensed under the MIT licenses.
+ */
 ;(function($, window, document, undefined) {
 
     //ToDo Max_cols and Max_size_x conflict.. need to unify
@@ -2719,6 +2742,8 @@
     * @return {Class} Returns the instance of the Gridster Class.
     */
     fn.move_widget_down = function($widget, y_units) {
+    
+    	if (y_units <= 0) { return false; }   
         var el_grid_data = $widget.coords().grid;
         var actual_row = el_grid_data.row;
         var moved = [];
@@ -3546,6 +3571,12 @@
         });
 
         this.cols = Math.max(min_cols, cols, this.options.min_cols);
+        var max_cols = this.options.max_cols;
+        if (max_cols >= -1 && max_cols >= min_cols) {
+            if (max_cols < this.cols) {
+                this.cols = max_cols;
+            }
+        }
         //this.rows = Math.max(max_rows, this.options.min_rows);
         this.rows = this.options.max_rows;
 
