@@ -27,6 +27,7 @@ Changelog 2013-04-24
 
 + Enable / Disable functionality
 + Resize functionality
++ Update to grunt 0.4 util
 + Merge of other forked versions 
 
 dustmoo Modifications
