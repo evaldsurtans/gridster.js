@@ -839,15 +839,24 @@
             this.disable();
         }       
         
-        if(this.options.resize_handle) {
-            this.$resizeHandle = $(this.options.resize_handle);
-            this.$resizeHandle.bind('click', $.proxy(this.click_resize_handle, this));
-        }
+        this.refresh_resize_handlers();
 
         $(window).bind(
             'resize', throttle($.proxy(this.recalculate_faux_grid, this), 200));
     };
     
+    
+    /**
+    * Bind resize handlers
+    *
+    * @method refresh_resize_handlers
+    */
+    fn.refresh_resize_handlers = function() {
+        if(this.options.resize_handle) {
+            this.$resizeHandle = $(this.options.resize_handle).filter(':not(.gridster-applied)').addClass('gridster-applied');
+            this.$resizeHandle.bind('click', $.proxy(this.click_resize_handle, this));
+        }
+    };
     
     /**
     * Release bindings
@@ -997,6 +1006,8 @@
         //this.add_faux_cols(pos.size_x);
 
         this.set_dom_grid_height();
+
+        this.refresh_resize_handlers();
 
         return $w.fadeIn();
     };
