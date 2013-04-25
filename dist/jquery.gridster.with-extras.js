@@ -905,7 +905,7 @@
                 $li.attr('data-sizey', variation.sizey);
                 
                 this.resize_widget($li, variation.sizex, variation.sizey);
-                self.$el.trigger('gridster:resize_handle');
+                this.$el.trigger('gridster:resize_handle');
                 
                 break;        
             }
