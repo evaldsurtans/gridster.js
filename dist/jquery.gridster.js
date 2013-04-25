@@ -949,7 +949,7 @@
     * @return {bool}
     */
     fn.isEnabled = function() {        
-        return this.$wrapper.hasClass('enabled');
+        return !this.$wrapper.hasClass('disabled');
     };
     
     /**
