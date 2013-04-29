@@ -277,7 +277,7 @@
                 'data-row': pos.row,
                 'data-sizex' : size_x,
                 'data-sizey' : size_y
-            }).addClass('gs_w').appendTo(this.$el).hide();
+            }).addClass('gs_w').css('opacity', 0).show().appendTo(this.$el);            
 
         this.$widgets = this.$widgets.add($w);
         this.$changed = this.$changed.add($w);
@@ -290,8 +290,12 @@
         this.set_dom_grid_height();
 
         this.refresh_resize_handlers();
+        
+        setTimeout(function(){
+            $w.css('opacity', 1);
+        }, 200);
 
-        return $w.fadeIn();
+        return $w;
     };
 
 
@@ -575,7 +579,9 @@
 
         this.remove_from_gridmap(wgd);
 
-        $el.fadeOut($.proxy(function() {
+        $el.removeClass('portfolio-top-box').css('opacity', 0);
+
+        setTimeout($.proxy(function() {
             $el.remove();
 
             if (!silent) {
@@ -589,7 +595,7 @@
             if (callback) {
                 callback.call(this, el);
             }
-        }, this));
+        }, this), 500);
     };
 
 
