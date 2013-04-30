@@ -489,12 +489,11 @@
             size_y: size_y
         });
 
-        /*
-        $nexts.not(exclude).each($.proxy(function(i, widget) {
-            console.log("from_remove")
+        
+        $nexts.not(exclude).each($.proxy(function(i, widget) {      
             this.move_widget_up( $(widget), size_y );
         }, this));
-        */
+        
 
         this.set_dom_grid_height();
 
