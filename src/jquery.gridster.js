@@ -2722,9 +2722,9 @@
 
         // don't duplicate stylesheets for the same configuration
         var serialized_opts = $.param(opts);
-        if ($.inArray(serialized_opts, Gridster.generated_stylesheets) >= 0) {
-            return false;
-        }
+        // if ($.inArray(serialized_opts, Gridster.generated_stylesheets) >= 0) {
+        //    return false;
+        // }
 
         Gridster.generated_stylesheets.push(serialized_opts);
 
@@ -2767,18 +2767,23 @@
     * @param {String} css The styles to apply.
     * @return {Object} Returns the instance of the Gridster class.
     */
-    fn.add_style_tag = function(css) {
+    fn.add_style_tag = function(css) {      
+      
+      $('style#gridster-style').remove();
+        
       var d = document;
       var tag = d.createElement('style');
-
-      d.getElementsByTagName('head')[0].appendChild(tag);
+            
+      tag.setAttribute('id', 'gridster-style');
       tag.setAttribute('type', 'text/css');
-
+      d.getElementsByTagName('head')[0].appendChild(tag);
+      
       if (tag.styleSheet) {
         tag.styleSheet.cssText = css;
       }else{
         tag.appendChild(document.createTextNode(css));
       }
+      
       return this;
     };
 
