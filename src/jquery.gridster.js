@@ -14,8 +14,8 @@
         static_class: 'static',
         widget_margins: [10, 10],
         widget_base_dimensions: [400, 225],
-        extra_rows: 0,
-        extra_cols: 0,
+        extra_rows: 1,
+        extra_cols: 10,
         min_cols: 1,
         max_cols: 60,
         min_rows: 15,
@@ -126,6 +126,14 @@
             'resize', throttle($.proxy(this.recalculate_faux_grid, this), 200));
     };
     
+    fn.updateSizes = function(width, height, marginX, marginY) {
+        this.options.widget_base_dimensions = [width, height];
+        this.options.widget_margins = [marginX, marginY];
+        this.wrapper_width = this.$wrapper.width();
+        this.min_widget_width = (this.options.widget_margins[0] * 2) + this.options.widget_base_dimensions[0];
+        this.min_widget_height = (this.options.widget_margins[1] * 2) + this.options.widget_base_dimensions[1];
+        this.generate_stylesheet();
+    };
     
     /**
     * Bind resize handlers
@@ -862,7 +870,7 @@
 
         this.colliders_data = this.collision_api.get_closest_colliders(
             abs_offset);
-
+            
         this.on_overlapped_column_change(
             this.on_start_overlapping_column,
             this.on_stop_overlapping_column
@@ -2009,20 +2017,21 @@
         }
     };
 
-   //Not yet part of api - DM.
     fn.new_move_widget_to = function($widget, col, row){
         var self = this;
         var widget_grid_data = $widget.coords().grid;
 
-        this.remove_from_gridmap(widget_grid_data);
+        //this.remove_from_gridmap(widget_grid_data);
         widget_grid_data.row = row;
         widget_grid_data.col = col;
 
-        this.add_to_gridmap(widget_grid_data);
+        //this.add_to_gridmap(widget_grid_data);
         $widget.attr('data-row', row);
         $widget.attr('data-col', col);
         this.update_widget_position(widget_grid_data, $widget);
         this.$changed = this.$changed.add($widget);
+        
+        this.set_dom_grid_height();
 
         return this;
     }
@@ -2373,7 +2382,7 @@
     * @param {Number} [max_row] The max row allowed.
     * @return {Boolean} Returns true if all cells are empty, else return false.
     */
-    fn.can_move_to = function(widget_grid_data, col, row, max_row) {
+    fn.can_move_to = function(widget_grid_data, col, row, max_row) {        
         var ga = this.gridmap;
         var $w = widget_grid_data.el;
         var future_wd = {
@@ -2722,7 +2731,7 @@
 
         // don't duplicate stylesheets for the same configuration
         var serialized_opts = $.param(opts);
-        // if ($.inArray(serialized_opts, Gridster.generated_stylesheets) >= 0) {
+        //if ($.inArray(serialized_opts, Gridster.generated_stylesheets) >= 0) {
         //    return false;
         // }
 
