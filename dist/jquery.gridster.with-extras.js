@@ -2741,8 +2741,12 @@
         var widget_grid_data = $widget.coords().grid;
 
         //this.remove_from_gridmap(widget_grid_data);
+        this.gridmap[widget_grid_data.col][widget_grid_data.row] = undefined;
+        
         widget_grid_data.row = row;
         widget_grid_data.col = col;
+        
+        this.gridmap[col][row] = $widget;
 
         //this.add_to_gridmap(widget_grid_data);
         $widget.attr('data-row', row);
